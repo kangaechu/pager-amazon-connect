@@ -1,0 +1,228 @@
+{
+  "modules": [{
+    "id": "79175408-3ff0-42f4-bfa5-ed58a06f4fee",
+    "type": "SetVoice",
+    "branches": [{
+      "condition": "Success",
+      "transition": "4b7ebbdb-22ed-4cfd-b566-8285daa53cbc"
+    }],
+    "parameters": [{
+      "name": "GlobalVoice",
+      "value": "Takumi"
+    }],
+    "metadata": {
+      "position": {
+        "x": 551,
+        "y": 243
+      }
+    }
+  }, {
+    "id": "b092c9fa-ec2f-48c7-a22a-d46184d4af61",
+    "type": "SetAttributes",
+    "branches": [{
+      "condition": "Success",
+      "transition": "d5fece50-c31c-4ecd-bb75-81a78c4ac650"
+    }, {
+      "condition": "Error",
+      "transition": "e1d99e8e-e457-491b-af02-53d70d90580f"
+    }],
+    "parameters": [{
+      "name": "Attribute",
+      "value": "Stored customer input",
+      "key": "MessageDigits",
+      "namespace": "System"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1011,
+        "y": 160
+      }
+    }
+  }, {
+    "id": "4b7ebbdb-22ed-4cfd-b566-8285daa53cbc",
+    "type": "StoreUserInput",
+    "branches": [{
+      "condition": "Success",
+      "transition": "b092c9fa-ec2f-48c7-a22a-d46184d4af61"
+    }, {
+      "condition": "Error",
+      "transition": "e1d99e8e-e457-491b-af02-53d70d90580f"
+    }],
+    "parameters": [{
+      "name": "Text",
+      "value": "メッセージを入力してください",
+      "namespace": null
+    }, {
+      "name": "TextToSpeechType",
+      "value": "text"
+    }, {
+      "name": "CustomerInputType",
+      "value": "Custom"
+    }, {
+      "name": "Timeout",
+      "value": "6"
+    }, {
+      "name": "MaxDigits",
+      "value": 200
+    }, {
+      "name": "EncryptEntry",
+      "value": false
+    }],
+    "metadata": {
+      "position": {
+        "x": 779,
+        "y": 243
+      },
+      "useDynamic": false,
+      "useDynamicForEncryptionKeys": false,
+      "countryCodePrefix": "+1"
+    }
+  }, {
+    "id": "e1d99e8e-e457-491b-af02-53d70d90580f",
+    "type": "PlayPrompt",
+    "branches": [{
+      "condition": "Success",
+      "transition": "401a0775-88b3-457f-b9e6-f92f13348853"
+    }],
+    "parameters": [{
+      "name": "Text",
+      "value": "テキストの入力時に問題が発生しました。最初からやり直してください。",
+      "namespace": null
+    }, {
+      "name": "TextToSpeechType",
+      "value": "text"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1457,
+        "y": 330
+      },
+      "useDynamic": false
+    }
+  }, {
+    "id": "401a0775-88b3-457f-b9e6-f92f13348853",
+    "type": "Disconnect",
+    "branches": [],
+    "parameters": [],
+    "metadata": {
+      "position": {
+        "x": 1941,
+        "y": 253
+      }
+    }
+  }, {
+    "id": "e1b9e89d-9a82-4da5-b1de-614c4c0b7aca",
+    "type": "PlayPrompt",
+    "branches": [{
+      "condition": "Success",
+      "transition": "401a0775-88b3-457f-b9e6-f92f13348853"
+    }],
+    "parameters": [{
+      "name": "Text",
+      "value": "成功しました。",
+      "namespace": null
+    }, {
+      "name": "TextToSpeechType",
+      "value": "text"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1693,
+        "y": 128
+      },
+      "useDynamic": false
+    }
+  }, {
+    "id": "2eaa4e05-da41-4358-8bea-5b6e41e420b4",
+    "type": "PlayPrompt",
+    "branches": [{
+      "condition": "Success",
+      "transition": "401a0775-88b3-457f-b9e6-f92f13348853"
+    }],
+    "parameters": [{
+      "name": "Text",
+      "value": "失敗しました。",
+      "namespace": null
+    }, {
+      "name": "TextToSpeechType",
+      "value": "text"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1692,
+        "y": 279
+      },
+      "useDynamic": false
+    }
+  }, {
+    "id": "d5fece50-c31c-4ecd-bb75-81a78c4ac650",
+    "type": "PlayPrompt",
+    "branches": [{
+      "condition": "Success",
+      "transition": "dbea5b51-5d9b-44c3-bc53-910044c3f1cd"
+    }],
+    "parameters": [{
+      "name": "AudioPrompt",
+      "value": "arn:aws:connect:ap-northeast-1:123456789012:instance/126ef1b4-3fbe-47ff-8e23-fde0a3f415fc/prompt/d1750dfe-c095-4c7b-ae67-2c2428dccb5b",
+      "namespace": null,
+      "resourceName": "Beep.wav"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1232,
+        "y": 159
+      },
+      "useDynamic": false,
+      "promptName": "Beep.wav"
+    }
+  }, {
+    "id": "dbea5b51-5d9b-44c3-bc53-910044c3f1cd",
+    "type": "InvokeExternalResource",
+    "branches": [{
+      "condition": "Success",
+      "transition": "e1b9e89d-9a82-4da5-b1de-614c4c0b7aca"
+    }, {
+      "condition": "Error",
+      "transition": "2eaa4e05-da41-4358-8bea-5b6e41e420b4"
+    }],
+    "parameters": [{
+      "name": "FunctionArn",
+      "value": "arn:aws:lambda:ap-northeast-1:123456789012:function:pager-dev-encode",
+      "namespace": null
+    }, {
+      "name": "TimeLimit",
+      "value": "3"
+    }, {
+      "name": "Parameter",
+      "key": "messageDigits",
+      "value": "Stored customer input",
+      "namespace": "System"
+    }],
+    "metadata": {
+      "position": {
+        "x": 1456,
+        "y": 125
+      },
+      "dynamicMetadata": {
+        "messageDigits": true
+      },
+      "useDynamic": false
+    },
+    "target": "Lambda"
+  }],
+  "version": "1",
+  "type": "contactFlow",
+  "start": "79175408-3ff0-42f4-bfa5-ed58a06f4fee",
+  "metadata": {
+    "entryPointPosition": {
+      "x": 395,
+      "y": 247
+    },
+    "snapToGrid": false,
+    "name": "ポケベル",
+    "description": "DTMFを元に連絡します",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": "3274d998cec1786e855573200a1041a7beaf49458accc72320113ee0d6768887"
+  }
+}
